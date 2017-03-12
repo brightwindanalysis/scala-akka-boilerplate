@@ -6,9 +6,42 @@
 
 package com.brightwindanalysis
 
-object Main {
+import akka.actor.ActorSystem
+import akka.event.Logging
+import akka.http.scaladsl.Http.ServerBinding
+import akka.stream.ActorMaterializer
+import com.brightwindanalysis.http.Web
 
-  private def start = println("hello")
+import scala.concurrent.Future
+
+object Main extends Web {
+
+  implicit val actorSystem = ActorSystem("scala-akka-boilerplate")
+  implicit val materializer = ActorMaterializer()
+  implicit val executionContext = actorSystem.dispatcher
+
+  val log = Logging(actorSystem, getClass.getName)
+
+  private def start = for {
+    serverBinding@ServerBinding(localAddress) <- bindAndHandleHttp()
+  } yield {
+    val (host, port) = (localAddress.getHostName, localAddress.getPort)
+    log.info("successfully bound to {}:{}", host, port)
+    sys.addShutdownHook {
+      shutDown(serverBinding)
+    }
+  }
+
+  private def shutDown(serverBinding: ServerBinding): Unit = {
+    for {
+      _ <- serverBinding.unbind()
+      _ <- Future.successful(materializer.shutdown())
+      _ <- actorSystem.terminate()
+    } yield {
+      log.error("shutting down")
+      sys.exit()
+    }
+  }
 
   def main(args: Array[String]): Unit = start
 
