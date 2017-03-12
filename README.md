@@ -9,4 +9,7 @@ Useful commands
 ```
 # start the project
 sbt run
+
+# check style
+sbt scalastyle
 ```
