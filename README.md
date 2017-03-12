@@ -12,4 +12,7 @@ sbt run
 
 # check style
 sbt scalastyle
+
+# run test
+sbt test
 ```

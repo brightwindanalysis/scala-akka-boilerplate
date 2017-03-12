@@ -14,6 +14,9 @@ lazy val V = new {
   val akka = "2.4.17"
   val akkaHttp = "10.0.4"
   val logback = "1.2.1"
+
+  val akkaHttpTestkit = "10.0.4"
+  val scalatest = "3.0.1"
 }
 
 lazy val N = new {
@@ -24,6 +27,9 @@ libraryDependencies ++= Seq(
   N.typesafe %% "akka-actor" % V.akka,
   N.typesafe %% "akka-http" % V.akkaHttp,
   N.typesafe %% "akka-slf4j" % V.akka,
-  "ch.qos.logback" % "logback-classic" % V.logback
+  "ch.qos.logback" % "logback-classic" % V.logback,
+
+  N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",
+  "org.scalatest" %% "scalatest" % V.scalatest % "test"
 )
     
