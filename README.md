@@ -10,6 +10,9 @@ Useful commands
 # start the project
 sbt run
 
+# hot reload
+sbt ~re-start
+
 # check style
 sbt scalastyle
 
