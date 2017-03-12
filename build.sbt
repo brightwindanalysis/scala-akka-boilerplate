@@ -11,9 +11,9 @@ version := "1.0"
 scalaVersion := "2.12.1"
 
 lazy val V = new {
-  val akka = "2.4.16"
-  val akkaHttp = "10.0.3"
-  val logback = "1.1.9"
+  val akka = "2.4.17"
+  val akkaHttp = "10.0.4"
+  val logback = "1.2.1"
 }
 
 lazy val N = new {
