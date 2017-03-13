@@ -5,7 +5,7 @@
 [circleci-image]: https://circleci.com/gh/brightwindanalysis/scala-akka-boilerplate.svg?style=svg
 [circleci-url]: https://circleci.com/gh/brightwindanalysis/scala-akka-boilerplate
 
-Useful commands
+### Useful commands
 ```
 # start the project
 sbt run
@@ -20,7 +20,7 @@ sbt scalastyle
 sbt test
 ```
 
-Docker
+### Docker
 ```
 # generate Dockerfile in target/docker/
 sbt docker:stage
@@ -36,3 +36,11 @@ docker run \
   --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
 ```
+
+### CI/CD
+
+[Setup](http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html) Amazon ECR
+
+Setup the following CircleCI Environment Variables:
+* AWS_REGION
+* AWS_ACCOUNT_ID
