@@ -8,6 +8,13 @@ name := "scala-akka-boilerplate"
 
 scalaVersion := "2.12.1"
 
+import com.typesafe.config.{Config, ConfigFactory}
+
+val typesafeConfig = settingKey[Config]("Typesafe config")
+typesafeConfig := {
+  ConfigFactory.parseFileAnySyntax((resourceDirectory in Compile).value / "application").resolve()
+}
+
 lazy val V = new {
   val akka = "2.4.17"
   val akkaHttp = "10.0.4"
@@ -34,5 +41,5 @@ libraryDependencies ++= Seq(
 lazy val dockerConfig = project.in(file("."))
   .enablePlugins(JavaServerAppPackaging)
   .settings(
-    dockerExposedPorts := Seq(3000)
+    dockerExposedPorts := Seq(typesafeConfig.value.getInt("application.docker.port"))
   )
