@@ -41,6 +41,6 @@ docker run \
 
 [Setup](http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html) Amazon ECR
 
-Setup the following CircleCI Environment Variables:
+Config the following CircleCI Environment Variables:
 * AWS_REGION
 * AWS_ACCOUNT_ID
