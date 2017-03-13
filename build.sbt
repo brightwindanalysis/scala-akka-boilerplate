@@ -32,4 +32,9 @@ libraryDependencies ++= Seq(
   N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",
   "org.scalatest" %% "scalatest" % V.scalatest % "test"
 )
-    
+
+lazy val dockerConfig = project.in(file("."))
+  .enablePlugins(JavaServerAppPackaging)
+  .settings(
+    dockerExposedPorts := Seq(3000)
+  )

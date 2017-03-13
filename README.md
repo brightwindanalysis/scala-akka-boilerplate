@@ -19,3 +19,19 @@ sbt scalastyle
 # run test
 sbt test
 ```
+
+Docker
+```
+# generate Dockerfile in target/docker/
+sbt docker:stage
+
+# build image
+sbt docker:publishLocal
+
+# run temporary containter
+docker run \
+  --rm \
+  --name scala-akka-boilerplate \
+  -p 3000:3000 \
+  scala-akka-boilerplate:1.0
+```
