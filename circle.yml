@@ -5,7 +5,7 @@ machine:
     - docker
   environment:
     SBT_VERSION: "0.13.13"
-    DOCKER_REGISTRY: "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$CIRCLE_PROJECT_REPONAME"
+    DOCKER_REGISTRY: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${CIRCLE_PROJECT_REPONAME}"
 
 dependencies:
   pre:
@@ -14,8 +14,8 @@ dependencies:
   override:
     - sbt docker:publishLocal
     - eval $(aws ecr get-login --region $AWS_REGION)
-    - docker tag $CIRCLE_PROJECT_REPONAME:latest "$DOCKER_REGISTRY":latest
-    - docker push "$DOCKER_REGISTRY":latest
+    - docker tag $CIRCLE_PROJECT_REPONAME:latest $DOCKER_REGISTRY:latest
+    - docker push $DOCKER_REGISTRY:latest
   cache_directories:
     - "~/.ivy2"
     - "~/.sbt"
