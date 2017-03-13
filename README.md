@@ -31,7 +31,7 @@ sbt docker:publishLocal
 # run temporary containter
 docker run \
   --rm \
+  --network="host" \
   --name scala-akka-boilerplate \
-  -p 3000:3000 \
-  scala-akka-boilerplate:1.0
+  scala-akka-boilerplate:latest
 ```
