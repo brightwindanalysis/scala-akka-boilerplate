@@ -41,8 +41,10 @@ docker run \
 
 [Setup](http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html) Amazon ECR
 
-Create a unique IAM user and configure AWS Permissions on CircleCI:
+Create a unique IAM user and configure AWS permissions on CircleCI:
 * `AmazonEC2ContainerRegistryPowerUser` to push on the registry
+
+Config SSH permissions on CircleCI to deploy on EC2
 
 Config the following CircleCI Environment Variables:
 * AWS_REGION
