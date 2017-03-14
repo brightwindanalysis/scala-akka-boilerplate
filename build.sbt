@@ -20,12 +20,15 @@ lazy val V = new {
   val akkaHttp = "10.0.4"
   val logback = "1.2.1"
 
+  val circe = "0.7.0"
+
   val akkaHttpTestkit = "10.0.4"
   val scalatest = "3.0.1"
 }
 
 lazy val N = new {
   val typesafe = "com.typesafe.akka"
+  val circe = "io.circe"
 }
 
 libraryDependencies ++= Seq(
@@ -33,6 +36,10 @@ libraryDependencies ++= Seq(
   N.typesafe %% "akka-http" % V.akkaHttp,
   N.typesafe %% "akka-slf4j" % V.akka,
   "ch.qos.logback" % "logback-classic" % V.logback,
+
+  N.circe %% "circe-core" % V.circe,
+  N.circe %% "circe-generic" % V.circe,
+  N.circe %% "circe-parser" % V.circe,
 
   N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",
   "org.scalatest" %% "scalatest" % V.scalatest % "test"

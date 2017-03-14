@@ -43,6 +43,12 @@ docker run \
   -e HTTP_PORT="8080" \
   --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
+
+# access container
+docker exec -it scala-akka-boilerplate bash
+
+# access container as root
+docker exec -it --user root scala-akka-boilerplate bash
 ```
 
 ### CI/CD
