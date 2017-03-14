@@ -49,3 +49,5 @@ Config SSH permissions on CircleCI to deploy on EC2
 Config the following CircleCI Environment Variables:
 * AWS_REGION
 * AWS_ACCOUNT_ID (registry)
+* EC2_USERNAME
+* EC2_HOST
