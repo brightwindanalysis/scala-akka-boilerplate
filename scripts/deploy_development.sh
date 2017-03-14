@@ -18,12 +18,13 @@ EOF
 }
 title
 
+AWS_LOGIN=$(aws ecr get-login --region $AWS_REGION)
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
 echo "[+] Deploy container to EC2"
 
 ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
-  eval $(aws ecr get-login --region $AWS_REGION)
+  ${AWS_LOGIN}
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
   docker run \
     --detach \
