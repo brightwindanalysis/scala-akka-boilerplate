@@ -35,6 +35,14 @@ docker run \
   -e HTTP_PORT="8080" \
   --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
+
+# run containter in background
+docker run \
+  --detach \
+  --network="host" \
+  -e HTTP_PORT="8080" \
+  --name scala-akka-boilerplate \
+  scala-akka-boilerplate:latest
 ```
 
 ### CI/CD
