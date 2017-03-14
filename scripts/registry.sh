@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# unofficial bash strict mode
+set -euo pipefail
+IFS=$'\n\t'
+
 title() {
 cat<<EOF
 
@@ -14,17 +18,14 @@ EOF
 }
 title
 
-echo "[+] Push image to ECR"
-
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
-echo $DOCKER_REGISTRY
-echo ${DOCKER_REGISTRY}
-echo $CIRCLE_PROJECT_REPONAME
-echo ${CIRCLE_PROJECT_REPONAME}
-echo $AWS_REGION
-echo ${AWS_REGION}
+echo "[+] Push images to ECR"
 
-#eval $(aws ecr get-login --region $AWS_REGION)
-#docker tag $CIRCLE_PROJECT_REPONAME:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$CIRCLE_PROJECT_REPONAME:latest
-#docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$CIRCLE_PROJECT_REPONAME:latest
+eval $(aws ecr get-login --region $AWS_REGION)
+
+docker tag ${CIRCLE_PROJECT_REPONAME} ${DOCKER_REGISTRY}/${CIRCLE_SHA1}:latest
+docker tag ${CIRCLE_PROJECT_REPONAME} ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
+
+docker push ${DOCKER_REGISTRY}/${CIRCLE_SHA1}:latest
+docker push ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
