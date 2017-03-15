@@ -18,10 +18,6 @@ dependencies:
     - wget -q https://dl.bintray.com/sbt/debian/sbt-"$SBT_VERSION".deb
     - sudo dpkg -i sbt-"$SBT_VERSION".deb
   override:
-    # pull image from ecr to cache docker layers for quicker rebuilds
-    - eval $(aws ecr get-login --region $AWS_REGION)
-    - docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${CIRCLE_PROJECT_REPONAME}:latest
-
     - sbt docker:publishLocal
 
 test:
