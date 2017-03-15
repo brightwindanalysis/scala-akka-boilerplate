@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # unofficial bash strict mode
-#set -euo pipefail
-#IFS=$'\n\t'
+set -euo pipefail
+IFS=$'\n\t'
 
 title() {
 cat<<EOF
@@ -28,15 +28,7 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
 
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
-  docker rm -f `docker ps -a -f name=$CIRCLE_PROJECT_REPONAME -q` &>/dev/null && \
-    echo "removed old container" || echo "container not found"
-
-  CONTAINER_ID=$(docker ps -a -f name=$CIRCLE_PROJECT_REPONAME -q)
-  echo ${CONTAINER_ID}
-  docker rm -f ${CONTAINER_ID} &>/dev/null && \
-    echo "removed old container" || echo "container not found"
-  docker rm -f ${CONTAINER_ID}
-  docker rm -f ${CONTAINER_ID} &>/dev/null && \
+  docker rm -f $(docker ps -a -f name="scala-akka-boilerplate" -q) &>/dev/null && \
     echo "removed old container" || echo "container not found"
 
   docker run \
