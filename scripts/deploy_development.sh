@@ -28,21 +28,12 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
 
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
-  echo $CIRCLE_PROJECT_REPONAME
-  echo ${CIRCLE_PROJECT_REPONAME}
-  docker ps -a
-  docker ps -a -f name=$CIRCLE_PROJECT_REPONAME
-  docker ps -a -f name=${CIRCLE_PROJECT_REPONAME}
-  docker ps -a -f name=$CIRCLE_PROJECT_REPONAME -q
-  docker ps -a -f name=${CIRCLE_PROJECT_REPONAME} -q
-  docker ps -a -f name=scala-akka-boilerplate
-  docker ps -a -f name="scala-akka-boilerplate"
-  docker ps -a -f name=scala-akka-boilerplate -q
-  docker ps -a -f name="scala-akka-boilerplate" -q
-  docker ps -a -f name="${CIRCLE_PROJECT_REPONAME}"
-  docker ps -a -f name="$CIRCLE_PROJECT_REPONAME" -q
-
-  docker rm -f $(docker ps -a -f name=$CIRCLE_PROJECT_REPONAME -q) &>/dev/null && \
+  CONTAINER_ID=$(docker ps -a -f name=$CIRCLE_PROJECT_REPONAME -q)
+  echo ${CONTAINER_ID}
+  docker rm -f ${CONTAINER_ID} &>/dev/null && \
+    echo "removed old container" || echo "container not found"
+  docker rm -f ${CONTAINER_ID}
+  docker rm -f ${CONTAINER_ID} &>/dev/null && \
     echo "removed old container" || echo "container not found"
 
   docker run \
