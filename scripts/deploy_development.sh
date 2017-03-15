@@ -27,9 +27,8 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   eval $(aws ecr get-login --region $AWS_REGION)
 
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
-  docker ps -a
-  echo $(docker ps -a -f name="${CIRCLE_PROJECT_REPONAME}" -q)
-  docker rm -f $(docker ps -a -f name="${CIRCLE_PROJECT_REPONAME}" -q) &>/dev/null && \
+
+  docker rm -f $(docker ps -a -f name=$CIRCLE_PROJECT_REPONAME -q) &>/dev/null && \
     echo "removed old container" || echo "container not found"
 
   docker run \
