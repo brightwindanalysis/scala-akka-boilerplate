@@ -24,12 +24,16 @@ echo "[+] Deploy container to EC2"
 
 ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
 
+  # remove running container by name only if exists
+  docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
+  # delete dangling images <none>
+  docker rmi $(docker images -q -f dangling=true)
+  # delete dangling volumes
+  docker volume rm $(docker volume ls -q -f dangling=true)
+
   eval $(aws ecr get-login --region $AWS_REGION)
 
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
-
-  # remove container by name only if exists
-  docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
 
   docker run \
     --detach \
