@@ -32,7 +32,7 @@ sbt docker:publishLocal
 docker run \
   --rm \
   --network="host" \
-  -e HTTP_PORT="8080" \
+  -p 8080:3000 \
   --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
 

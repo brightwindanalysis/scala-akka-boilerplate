@@ -24,7 +24,7 @@ echo "[+] Deploy container to EC2"
 
 ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
 
-  # remove running container by name only if exists
+  # remove running container by name
   docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
   # delete dangling images <none>
   docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
@@ -36,7 +36,6 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
 
   docker run \
     --detach \
-    --network="host" \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 EOF
