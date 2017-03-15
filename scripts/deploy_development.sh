@@ -28,8 +28,8 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
 
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
-  docker rm -f $(docker ps -a -f name="scala-akka-boilerplate" -q) &>/dev/null && \
-    echo "removed old container" || echo "container not found"
+  # remove container by name only if exists
+  docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
 
   docker run \
     --detach \
