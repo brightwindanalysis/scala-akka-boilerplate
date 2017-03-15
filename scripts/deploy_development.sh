@@ -27,12 +27,11 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   # remove running container by name only if exists
   docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
   # delete dangling images <none>
-  docker rmi $(docker images -q -f dangling=true)
+  docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
   # delete dangling volumes
-  docker volume rm $(docker volume ls -q -f dangling=true)
+  docker volume ls -q -f dangling=true | xargs --no-run-if-empty docker volume rm
 
   eval $(aws ecr get-login --region $AWS_REGION)
-
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
   docker run \
