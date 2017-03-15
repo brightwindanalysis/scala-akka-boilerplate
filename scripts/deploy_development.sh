@@ -34,8 +34,10 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   eval $(aws ecr get-login --region $AWS_REGION)
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
+  # run container in background and publish all exposed ports
   docker run \
     --detach \
+    -P \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 EOF

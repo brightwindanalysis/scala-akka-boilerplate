@@ -28,20 +28,12 @@ sbt docker:stage
 # build image
 sbt docker:publishLocal
 
-# run temporary containter
+# run temporary container
 docker run \
   --rm \
-  --network="host" \
-  -p 8080:3000 \
-  --name scala-akka-boilerplate \
-  scala-akka-boilerplate:latest
-
-# run containter in background
-docker run \
-  --detach \
-  --network="host" \
   -e HTTP_PORT="8080" \
-  --name scala-akka-boilerplate \
+  -P \
+  --name scala-akka-boilerplate-test \
   scala-akka-boilerplate:latest
 
 # access container
