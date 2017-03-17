@@ -32,9 +32,12 @@ sbt docker:publishLocal
 docker run \
   --rm \
   -e HTTP_PORT="8080" \
-  -P \
+  -p 80:8080 \
   --name scala-akka-boilerplate-test \
   scala-akka-boilerplate:latest
+
+# request status
+curl localhost:80/status
 
 # access container
 docker exec -it scala-akka-boilerplate bash

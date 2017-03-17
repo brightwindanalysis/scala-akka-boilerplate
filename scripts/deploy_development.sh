@@ -20,6 +20,10 @@ title
 
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
+# custom variables
+HOST_PORT=8080
+CONTAINER_PORT=3000
+
 echo "[+] Deploy container to EC2"
 
 ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
@@ -37,7 +41,7 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   # run container in background and publish all exposed ports
   docker run \
     --detach \
-    -P \
+    -p ${HOST_PORT}:${CONTAINER_PORT} \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 EOF
