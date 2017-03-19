@@ -19,14 +19,17 @@ EOF
 title
 
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-
-# custom variables
+LOG_PATH="/data/logs/docker/${CIRCLE_PROJECT_REPONAME}"
 HOST_PORT=8080
 CONTAINER_PORT=3000
 
 echo "[+] Deploy container to EC2"
 
 ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
+
+  # setup logs
+  sudo mkdir -p ${LOG_PATH}
+  sudo chmod 777 ${LOG_PATH}
 
   # remove running container by name
   docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
@@ -38,10 +41,11 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   eval $(aws ecr get-login --region $AWS_REGION)
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
-  # run container in backgrounds
+  # run container in background
   docker run \
     --detach \
     -p ${HOST_PORT}:${CONTAINER_PORT} \
+    -v ${LOG_PATH}:/opt/docker/logs \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 EOF

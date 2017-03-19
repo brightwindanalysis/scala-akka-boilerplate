@@ -36,7 +36,7 @@ docker run \
   --rm \
   -e HTTP_PORT="8080" \
   -p 80:8080 \
-  --name scala-akka-boilerplate-test \
+  --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
 
 # request status
