@@ -51,6 +51,8 @@ docker exec -it --user root scala-akka-boilerplate bash
 
 ### CI/CD
 
+Config CircleCI [Slack](https://slack.com/apps/A0F7VRE7N-circleci)'s Webhook
+
 [Setup](http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html) Amazon ECR
 
 Create a unique IAM user and configure AWS permissions on CircleCI:
