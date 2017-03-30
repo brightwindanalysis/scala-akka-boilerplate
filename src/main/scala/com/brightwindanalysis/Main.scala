@@ -22,6 +22,7 @@ object Main extends Web {
 
   val log = Logging(actorSystem, getClass.getName)
 
+  // TODO use startServer in HttpApp
   private def start = for {
     serverBinding@ServerBinding(localAddress) <- bindAndHandleHttp()
   } yield {
@@ -32,6 +33,7 @@ object Main extends Web {
     }
   }
 
+  // TODO override waitForShutdownSignal in HttpApp
   private def shutDown(serverBinding: ServerBinding): Unit = {
     for {
       _ <- serverBinding.unbind()
