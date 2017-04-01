@@ -30,9 +30,22 @@
         </encoder>
     </appender>
 
+    <appender name="SHOUTER" class="com.brightwindanalysis.logback.ShouterAppender">
+        <slack>
+            <webhookUrl>URL</webhookUrl>
+        </slack>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
     <root level="debug">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="SHOUTER"/>
     </root>
 
 </configuration>
