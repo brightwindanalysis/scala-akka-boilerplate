@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- log -->
     <define name="LOG_PATH" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
         <propertyName>application.log.path</propertyName>
     </define>
     <define name="LOG_NAME" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
         <propertyName>application.log.name</propertyName>
+    </define>
+
+    <!-- slack -->
+    <define name="SLACK_WEBHOOK_URL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.slack.webhook-url</propertyName>
     </define>
 
     <property name="PATTERN" value="[%date{ISO8601}][%-5level][%logger{36}][%X{akkaSource}] %msg%n"/>
@@ -30,22 +36,17 @@
         </encoder>
     </appender>
 
-    <appender name="SHOUTER" class="com.brightwindanalysis.logback.ShouterAppender">
-        <slack>
-            <webhookUrl>URL</webhookUrl>
-        </slack>
-        <encoder>
+    <appender name="SLACK" class="com.brightwindanalysis.logback.SlackAppender">
+        <webhookUrl>${SLACK_WEBHOOK_URL}</webhookUrl>
+        <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>${PATTERN}</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
+        </layout>
     </appender>
 
     <root level="debug">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
-        <appender-ref ref="SHOUTER"/>
+        <appender-ref ref="SLACK"/>
     </root>
 
 </configuration>
