@@ -41,6 +41,9 @@
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>${PATTERN}</pattern>
         </layout>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
     </appender>
 
     <root level="debug">

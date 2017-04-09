@@ -6,7 +6,6 @@
 
 package com.brightwindanalysis.logback
 
-import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.{AppenderBase, Layout}
 
@@ -17,7 +16,7 @@ class SlackAppender extends AppenderBase[ILoggingEvent] {
   @BeanProperty var webhookUrl: String = _
   @BeanProperty var layout: Layout[ILoggingEvent] = _
 
-  private[this] var isValidWebhookUrl: Boolean = _
+  private[this] var isValidWebhookUrl: Boolean = true
 
   override def start(): Unit = {
     isValidWebhookUrl = Option(webhookUrl) match {
@@ -28,14 +27,14 @@ class SlackAppender extends AppenderBase[ILoggingEvent] {
         addError("invalid webhookUrl")
         false
     }
+    super.start()
   }
 
   override def append(event: ILoggingEvent): Unit = {
-    event.getLevel match {
-      case Level.ERROR if isValidWebhookUrl =>
-        addError("TODO WEBHOOK")
+    if (isValidWebhookUrl) {
+      // TODO
+      addError(s"TODO ${event.getFormattedMessage}")
     }
-
   }
 
 }
