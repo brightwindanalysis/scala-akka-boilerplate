@@ -16,6 +16,14 @@ import dispatch.{Http, url}
 import scala.beans.BeanProperty
 import scala.util.{Failure, Success}
 
+// scalastyle:off underscore.import
+import io.circe.generic.auto._
+import io.circe.syntax._
+import io.circe.java8.time._
+// scalastyle:on underscore.import
+
+case class EventLog(name: String, message: String, data: ZonedDateTime)
+
 class SlackAppender extends AppenderBase[ILoggingEvent] {
 
   @BeanProperty var applicationName: String = _
@@ -39,7 +47,7 @@ class SlackAppender extends AppenderBase[ILoggingEvent] {
   override def append(event: ILoggingEvent): Unit = {
     if (isValidWebhookUrl) {
 
-      val eventLog = s"""{"text": "${ZonedDateTime.now}\n$applicationName\n${event.getFormattedMessage}"}"""
+      val eventLog = EventLog(applicationName, event.getFormattedMessage, ZonedDateTime.now).asJson.noSpaces
       val request = url(webhookUrl)
         .POST
         .setContentType("application/json", "UTF-8") << eventLog

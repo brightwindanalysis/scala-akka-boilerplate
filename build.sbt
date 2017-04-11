@@ -41,6 +41,7 @@ libraryDependencies ++= Seq(
   N.circe %% "circe-core" % V.circe,
   N.circe %% "circe-generic" % V.circe,
   N.circe %% "circe-parser" % V.circe,
+  N.circe %% "circe-java8" % V.circe,
   "net.databinder.dispatch" %% "dispatch-core" % V.dispatch,
 
   N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",
