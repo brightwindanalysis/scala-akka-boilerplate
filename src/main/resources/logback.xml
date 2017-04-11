@@ -10,6 +10,9 @@
     </define>
 
     <!-- slack -->
+    <define name="SLACK_NAME" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.slack.name</propertyName>
+    </define>
     <define name="SLACK_WEBHOOK_URL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
         <propertyName>application.slack.webhook-url</propertyName>
     </define>
@@ -37,6 +40,7 @@
     </appender>
 
     <appender name="SLACK" class="com.brightwindanalysis.logback.SlackAppender">
+        <applicationName>${SLACK_NAME}</applicationName>
         <webhookUrl>${SLACK_WEBHOOK_URL}</webhookUrl>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>${PATTERN}</pattern>
