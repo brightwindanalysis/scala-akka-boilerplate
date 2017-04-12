@@ -19,10 +19,9 @@ import scala.util.{Failure, Success}
 // scalastyle:off underscore.import
 import io.circe.generic.auto._
 import io.circe.syntax._
-import io.circe.java8.time._
 // scalastyle:on underscore.import
 
-case class EventLog(name: String, message: String, data: ZonedDateTime)
+case class SlackLog(text: String)
 
 class SlackAppender extends AppenderBase[ILoggingEvent] {
 
@@ -31,15 +30,11 @@ class SlackAppender extends AppenderBase[ILoggingEvent] {
   @BeanProperty var layout: Layout[ILoggingEvent] = _
 
   private[this] var isValidWebhookUrl: Boolean = _
+  private[this] val webhookUrlPrefix = "https://hooks.slack.com/services"
 
   override def start(): Unit = {
-    isValidWebhookUrl = Option(webhookUrl) match {
-      case Some(url) if url.nonEmpty =>
-        addInfo(s"valid webhookUrl=$url")
-        true
-      case _ =>
-        addError("invalid webhookUrl")
-        false
+    isValidWebhookUrl = Option(webhookUrl) exists { url =>
+      url.nonEmpty && url.startsWith(webhookUrlPrefix)
     }
     super.start()
   }
@@ -47,15 +42,16 @@ class SlackAppender extends AppenderBase[ILoggingEvent] {
   override def append(event: ILoggingEvent): Unit = {
     if (isValidWebhookUrl) {
 
-      val eventLog = EventLog(applicationName, event.getFormattedMessage, ZonedDateTime.now).asJson.noSpaces
+      val text = s"${ZonedDateTime.now}\n$applicationName\n${event.getFormattedMessage}"
+
       val request = url(webhookUrl)
         .POST
-        .setContentType("application/json", "UTF-8") << eventLog
+        .setContentType("application/json", "UTF-8") << SlackLog(text).asJson.noSpaces
 
       Http(request)
         .onComplete {
           case Success(_) => addInfo("slack notification succeed")
-          case Failure(error) => addError("slack notification failed", error)
+          case Failure(error) => addWarn("slack notification failed", error)
         }
     }
   }
