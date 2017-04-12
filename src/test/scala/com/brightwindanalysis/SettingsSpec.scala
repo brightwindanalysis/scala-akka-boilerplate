@@ -8,6 +8,7 @@ package com.brightwindanalysis
 
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
+import com.brightwindanalysis.setting.Settings
 import org.scalatest.{Matchers, WordSpecLike}
 
 class SettingsSpec extends TestKit(ActorSystem("settings-test")) with WordSpecLike with Matchers {

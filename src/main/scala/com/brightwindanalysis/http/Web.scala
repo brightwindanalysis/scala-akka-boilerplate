@@ -9,7 +9,7 @@ package com.brightwindanalysis.http
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import com.brightwindanalysis.Settings
+import com.brightwindanalysis.setting.Settings
 
 import scala.concurrent.Future
 

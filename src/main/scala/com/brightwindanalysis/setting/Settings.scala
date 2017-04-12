@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis
+package com.brightwindanalysis.setting
 
 import akka.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId, ExtensionIdProvider}
 
