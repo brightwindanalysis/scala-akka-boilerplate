@@ -39,8 +39,8 @@ docker run \
   --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
 
-# request status
-curl localhost:80/status
+# request status (with HTTPie)
+http :80/status
 
 # access container
 docker exec -it scala-akka-boilerplate bash
