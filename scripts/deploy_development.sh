@@ -31,8 +31,8 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   sudo mkdir -p ${LOG_PATH}
   sudo chmod 777 ${LOG_PATH}
 
-  # remove running container by name
-  docker ps -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
+  # remove old container by name
+  docker ps -a -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
   # delete dangling images <none>
   docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
   # delete dangling volumes
