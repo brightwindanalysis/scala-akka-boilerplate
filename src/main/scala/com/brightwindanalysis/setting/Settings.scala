@@ -4,11 +4,12 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis.setting
+package com.brightwindanalysis
+package setting
 
 import akka.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId, ExtensionIdProvider}
 
-class SettingsImpl(system: ExtendedActorSystem) extends Extension {
+final class SettingsImpl(system: ExtendedActorSystem) extends Extension {
   private[this] val config = system.settings.config
   private[this] val applicationConfig = config getConfig "application"
 

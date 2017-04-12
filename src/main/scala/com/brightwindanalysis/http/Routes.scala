@@ -15,7 +15,7 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 // scalastyle:on underscore.import
 
-case class Status(value: String)
+final case class Status(value: String)
 
 trait Routes {
 

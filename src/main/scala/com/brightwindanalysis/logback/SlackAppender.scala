@@ -21,9 +21,9 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 // scalastyle:on underscore.import
 
-case class SlackLog(text: String)
+final case class SlackLog(text: String)
 
-class SlackAppender extends AppenderBase[ILoggingEvent] {
+final class SlackAppender extends AppenderBase[ILoggingEvent] {
 
   @BeanProperty var applicationName: String = _
   @BeanProperty var webhookUrl: String = _
