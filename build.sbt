@@ -21,6 +21,7 @@ lazy val V = new {
   val logback = "1.2.2"
 
   val circe = "0.7.0"
+  val dispatch = "0.12.0"
 
   val akkaHttpTestkit = "10.0.5"
   val scalatest = "3.0.1"
@@ -40,6 +41,8 @@ libraryDependencies ++= Seq(
   N.circe %% "circe-core" % V.circe,
   N.circe %% "circe-generic" % V.circe,
   N.circe %% "circe-parser" % V.circe,
+  N.circe %% "circe-java8" % V.circe,
+  "net.databinder.dispatch" %% "dispatch-core" % V.dispatch,
 
   N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",
   "org.scalatest" %% "scalatest" % V.scalatest % "test"

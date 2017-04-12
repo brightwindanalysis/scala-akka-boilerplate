@@ -65,3 +65,4 @@ Config the following CircleCI Environment Variables:
 * AWS_ACCOUNT_ID (registry)
 * EC2_USERNAME
 * EC2_HOST
+* SLACK_WEBHOOK_URL
