@@ -10,8 +10,8 @@ machine:
 
 dependencies:
   cache_directories:
-    - "~/.ivy2"
     - "~/.sbt"
+    - "~/.ivy2"
     - "target/resolution-cache"
     - "target/streams"
     - "project/target/resolution-cache"
