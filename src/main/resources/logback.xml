@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- log -->
-    <define name="LOG_PATH" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
-        <propertyName>application.log.path</propertyName>
-    </define>
-    <define name="LOG_NAME" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
-        <propertyName>application.log.name</propertyName>
-    </define>
-
-    <!-- slack -->
-    <define name="SLACK_NAME" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
-        <propertyName>application.slack.name</propertyName>
-    </define>
-    <define name="SLACK_WEBHOOK_URL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
-        <propertyName>application.slack.webhook-url</propertyName>
-    </define>
-
     <property name="PATTERN" value="[%date{ISO8601}][%-5level][%logger{36}][%X{akkaSource}] %msg%n"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -25,6 +9,12 @@
         </encoder>
     </appender>
 
+    <define name="LOG_PATH" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.log.path</propertyName>
+    </define>
+    <define name="LOG_NAME" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.log.name</propertyName>
+    </define>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${LOG_NAME}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -39,6 +29,12 @@
         </encoder>
     </appender>
 
+    <define name="SLACK_NAME" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.slack.name</propertyName>
+    </define>
+    <define name="SLACK_WEBHOOK_URL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.slack.webhook-url</propertyName>
+    </define>
     <appender name="SLACK" class="com.brightwindanalysis.logback.SlackAppender">
         <applicationName>${SLACK_NAME}</applicationName>
         <webhookUrl>${SLACK_WEBHOOK_URL}</webhookUrl>
@@ -50,10 +46,24 @@
         </filter>
     </appender>
 
+    <define name="LOGENTRIES_TOKEN" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.logentries.token</propertyName>
+    </define>
+    <appender name="LOGENTRIES" class="com.logentries.logback.LogentriesAppender">
+        <Debug>False</Debug>
+        <Token>${LOGENTRIES_TOKEN}</Token>
+        <Ssl>True</Ssl>
+        <facility>USER</facility>
+        <layout>
+            <pattern>${PATTERN}</pattern>
+        </layout>
+    </appender>
+
     <root level="debug">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="SLACK"/>
+        <appender-ref ref="LOGENTRIES" />
     </root>
 
 </configuration>

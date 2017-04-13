@@ -19,6 +19,7 @@ lazy val V = new {
   val akka = "2.4.17"
   val akkaHttp = "10.0.5"
   val logback = "1.2.2"
+  val logentries = "1.1.37"
 
   val circe = "0.7.0"
   val dispatch = "0.12.0"
@@ -37,6 +38,7 @@ libraryDependencies ++= Seq(
   N.typesafe %% "akka-http" % V.akkaHttp,
   N.typesafe %% "akka-slf4j" % V.akka,
   "ch.qos.logback" % "logback-classic" % V.logback,
+  "com.logentries" % "logentries-appender" % V.logentries,
 
   N.circe %% "circe-core" % V.circe,
   N.circe %% "circe-generic" % V.circe,

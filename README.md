@@ -49,7 +49,7 @@ docker exec -it scala-akka-boilerplate bash
 docker exec -it --user root scala-akka-boilerplate bash
 ```
 
-### CI/CD
+### CI/CD and management tools
 
 Config CircleCI [Slack](https://slack.com/apps/A0F7VRE7N-circleci)'s Webhook
 
@@ -66,3 +66,4 @@ Config the following CircleCI Environment Variables:
 * EC2_USERNAME
 * EC2_HOST
 * SLACK_WEBHOOK_URL
+* LOGENTRIES_TOKEN
