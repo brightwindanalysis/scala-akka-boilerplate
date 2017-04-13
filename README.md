@@ -74,3 +74,5 @@ Config the following CircleCI Environment Variables:
 * EC2_HOST
 * SLACK_WEBHOOK_URL
 * LOGENTRIES_TOKEN
+
+View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of your build
