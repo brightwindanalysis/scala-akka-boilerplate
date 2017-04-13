@@ -3,6 +3,8 @@ machine:
     Europe/Dublin
   environment:
     SBT_VERSION: "0.13.13"
+    SCALA_VERSION: 2.12.0
+    SCALA_BINARY_VERSION: 2.12
   services:
     - docker
 
@@ -15,16 +17,22 @@ dependencies:
     - "project/target/resolution-cache"
     - "project/target/streams"
   pre:
+    - find ~/.sbt -name "*.lock" | xargs -r rm
+    - find ~/.ivy2 -name "ivydata-*.properties" | xargs -r rm
     - wget -q https://dl.bintray.com/sbt/debian/sbt-"$SBT_VERSION".deb
     - sudo dpkg -i sbt-"$SBT_VERSION".deb
   override:
+    - sbt ++$SCALA_VERSION coverage test:compile
     - sbt docker:publishLocal
 
 test:
   pre:
     - sbt scalastyle
   override:
-    - sbt test
+    - sbt ++$SCALA_VERSION coverage test coverageReport
+  post:
+    - mv target/scala-$SCALA_BINARY_VERSION/coverage-report $CIRCLE_ARTIFACTS/coverage-report
+    - mv target/scala-$SCALA_BINARY_VERSION/scoverage-report $CIRCLE_ARTIFACTS/scoverage-report
 
 deployment:
   development:
