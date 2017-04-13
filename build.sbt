@@ -55,3 +55,7 @@ lazy val dockerConfig = project.in(file("."))
   .settings(
     dockerExposedPorts := Seq(typesafeConfig.value.getInt("application.docker.port"))
   )
+
+coverageMinimum := 70
+coverageFailOnMinimum := false
+coverageHighlighting := true

@@ -21,6 +21,13 @@ sbt dependencyTree
 
 # run tests
 sbt test
+
+# run coverage and generate report
+sbt clean coverage test coverageReport
+
+# view report in browser (mac|linux)
+open ./target/scala-2.12/scoverage-report/index.html
+xdg-open ./target/scala-2.12/scoverage-report/index.html
 ```
 
 ### Docker
