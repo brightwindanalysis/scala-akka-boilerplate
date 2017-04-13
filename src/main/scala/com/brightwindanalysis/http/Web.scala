@@ -14,19 +14,19 @@ import com.brightwindanalysis.setting.Settings
 
 import scala.util.{Failure, Success}
 
-sealed trait FooMagnet {
+sealed trait WebMagnet {
   def apply(): Unit
 }
 
-object FooMagnet {
-  implicit def fromFoo(f: () => Unit): FooMagnet = new FooMagnet {
+object WebMagnet {
+  implicit def fromFoo(f: () => Unit): WebMagnet = new WebMagnet {
     override def apply(): Unit = f()
   }
 }
 
 trait Web extends Routes {
 
-  def bindAndHandleHttp(onStart: FooMagnet)
+  def bindAndHandleHttp(onStart: WebMagnet)
                        (implicit system: ActorSystem, materializer: ActorMaterializer): Unit = {
 
     implicit val _ = system.dispatcher

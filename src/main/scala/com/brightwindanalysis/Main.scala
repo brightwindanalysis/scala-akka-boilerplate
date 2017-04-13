@@ -11,7 +11,7 @@ import akka.event.Logging
 import akka.stream.ActorMaterializer
 import com.brightwindanalysis.http.Web
 
-object Main extends Web {
+object Main extends Web with App {
 
   private[this] implicit val actorSystem = ActorSystem("scala-akka-boilerplate")
   private[this] implicit val materializer = ActorMaterializer()
@@ -19,7 +19,7 @@ object Main extends Web {
 
   private[this] val log = Logging(actorSystem, getClass.getName)
 
-  def main(args: Array[String]): Unit = bindAndHandleHttp { () =>
-    log.debug("onStart magnet pattern")
+  bindAndHandleHttp { () =>
+    log.debug("onStart")
   }
 }
