@@ -18,10 +18,10 @@ typesafeConfig := {
 lazy val V = new {
   val akka = "2.4.17"
   val akkaHttp = "10.0.5"
-  val logback = "1.2.2"
+  val logback = "1.2.3"
   val logentries = "1.1.37"
 
-  val circe = "0.7.0"
+  val circe = "0.7.1"
   val dispatch = "0.12.0"
 
   val akkaHttpTestkit = "10.0.5"
