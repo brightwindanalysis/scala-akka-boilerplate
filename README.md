@@ -75,4 +75,6 @@ Config the following CircleCI Environment Variables:
 * SLACK_WEBHOOK_URL
 * LOGENTRIES_TOKEN
 
+Add a new Java log set on [logentries](https://docs.logentries.com/docs/logback)
+
 View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of your build
