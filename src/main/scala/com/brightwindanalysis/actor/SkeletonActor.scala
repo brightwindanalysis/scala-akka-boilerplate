@@ -14,14 +14,14 @@ object SkeletonActor {
   def props: Props = Props[SkeletonActor]
 
   sealed trait Message
-  case object RequestMessage extends Message
+  case class RequestMessage(value: String) extends Message
   case object ResponseMessage extends Message
 }
 
 final class SkeletonActor extends Actor with ActorLogging {
   override def receive: Receive = LoggingReceive {
-    case RequestMessage =>
-      log.debug("message")
+    case RequestMessage(value) =>
+      log.debug(s"message: $value")
       sender() ! ResponseMessage
     case _ =>
       log.error("invalid message")

@@ -21,8 +21,8 @@ final class SkeletonActorSpec extends TestKit(ActorSystem("test-actor-system"))
 
   "skeleton actor" must {
     "send Response when receives Request" in {
-      val skeleton = system.actorOf(SkeletonActor.props, "skeleton-test-1")
-      skeleton ! RequestMessage
+      val skeletonActorRef = system.actorOf(SkeletonActor.props, "skeleton-test-1")
+      skeletonActorRef ! RequestMessage("myMessage")
       expectMsg(ResponseMessage)
     }
   }
