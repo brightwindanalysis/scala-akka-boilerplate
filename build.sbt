@@ -46,6 +46,7 @@ libraryDependencies ++= Seq(
   N.circe %% "circe-java8" % V.circe,
   "net.databinder.dispatch" %% "dispatch-core" % V.dispatch,
 
+  N.typesafe %% "akka-testkit" % V.akka % "test",
   N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",
   "org.scalatest" %% "scalatest" % V.scalatest % "test"
 )
