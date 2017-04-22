@@ -4,11 +4,10 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis
+package com.brightwindanalysis.setting
 
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
-import com.brightwindanalysis.setting.Settings
 import org.scalatest.{Matchers, WordSpecLike}
 
 class SettingsSpec extends TestKit(ActorSystem("settings-test")) with WordSpecLike with Matchers {
