@@ -16,7 +16,7 @@ typesafeConfig := {
 }
 
 lazy val V = new {
-  val akka = "2.4.17"
+  val akka = "2.5.0"
   val akkaHttp = "10.0.5"
   val logback = "1.2.3"
   val logentries = "1.1.37"
@@ -25,7 +25,7 @@ lazy val V = new {
   val dispatch = "0.12.0"
 
   val akkaHttpTestkit = "10.0.5"
-  val scalatest = "3.0.1"
+  val scalatest = "3.0.3"
 }
 
 lazy val N = new {
@@ -35,7 +35,8 @@ lazy val N = new {
 
 libraryDependencies ++= Seq(
   N.typesafe %% "akka-actor" % V.akka,
-  N.typesafe %% "akka-http" % V.akkaHttp,
+  N.typesafe %% "akka-stream" % V.akka,
+  N.typesafe %% "akka-http" % V.akkaHttp exclude("com.typesafe.akka", "akka-stream_2.12"),
   N.typesafe %% "akka-slf4j" % V.akka,
   "ch.qos.logback" % "logback-classic" % V.logback,
   "com.logentries" % "logentries-appender" % V.logentries,
