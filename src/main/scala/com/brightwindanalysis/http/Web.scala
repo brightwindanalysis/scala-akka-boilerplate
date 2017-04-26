@@ -14,19 +14,9 @@ import com.brightwindanalysis.setting.Settings
 
 import scala.util.{Failure, Success}
 
-sealed trait WebMagnet {
-  def apply(): Unit
-}
-
-object WebMagnet {
-  implicit def fromFoo(f: () => Unit): WebMagnet = new WebMagnet {
-    override def apply(): Unit = f()
-  }
-}
-
 trait Web extends Routes {
 
-  def bindAndHandleHttp(onStart: WebMagnet)
+  def bindAndHandleHttp(onStart: => Unit)
                        (implicit system: ActorSystem, materializer: ActorMaterializer): Unit = {
 
     implicit val _ = system.dispatcher
@@ -37,7 +27,7 @@ trait Web extends Routes {
       case Success(serverBinding@ServerBinding(localAddress)) =>
         val (host, port) = (localAddress.getHostName, localAddress.getPort)
         log.info("successfully bound to {}:{}", host, port)
-        onStart()
+        onStart
         shutdownHttp(serverBinding)
       case Failure(error) =>
         log.error("failed to bind to {}:{}", httpConfig.host, httpConfig.port, error)

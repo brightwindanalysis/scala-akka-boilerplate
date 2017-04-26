@@ -19,7 +19,7 @@ object Main extends Web with App {
 
   private[this] val log = Logging(actorSystem, getClass.getName)
 
-  bindAndHandleHttp { () =>
+  bindAndHandleHttp {
     log.debug("onStart")
   }
 }
