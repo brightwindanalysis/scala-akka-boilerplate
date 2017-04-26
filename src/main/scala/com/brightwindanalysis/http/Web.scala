@@ -4,7 +4,8 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis.http
+package com.brightwindanalysis
+package http
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http

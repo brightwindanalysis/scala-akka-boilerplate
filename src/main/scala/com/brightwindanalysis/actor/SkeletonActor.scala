@@ -4,7 +4,8 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis.actor
+package com.brightwindanalysis
+package actor
 
 import akka.actor.{Actor, ActorLogging, Props}
 import akka.event.LoggingReceive

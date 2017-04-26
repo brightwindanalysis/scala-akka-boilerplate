@@ -4,7 +4,8 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis.http
+package com.brightwindanalysis
+package http
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives.{complete, get, path, pathEndOrSingleSlash}

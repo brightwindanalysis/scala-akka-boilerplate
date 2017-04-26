@@ -4,7 +4,8 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis.setting
+package com.brightwindanalysis
+package setting
 
 import ch.qos.logback.core.PropertyDefinerBase
 import com.typesafe.config.ConfigFactory
