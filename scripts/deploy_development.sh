@@ -20,8 +20,10 @@ title
 
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 LOG_PATH="/data/logs/docker/${CIRCLE_PROJECT_REPONAME}"
-HOST_PORT=8080
 CONTAINER_PORT=3000
+
+########## CUSTOM ENVIRONMENT VARIABLES ##########
+HOST_PORT=8080
 
 echo "[+] Deploy container to EC2"
 
@@ -41,9 +43,13 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   eval $(aws ecr get-login --region $AWS_REGION)
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
+  ########## CUSTOM COMMANDS ##########
+
   # run container in background
   docker run \
     --detach \
+    -e SLACK_WEBHOOK_URL="${SLACK_WEBHOOK_URL}" \
+    -e LOGENTRIES_TOKEN="${LOGENTRIES_TOKEN}" \
     -p ${HOST_PORT}:${CONTAINER_PORT} \
     -v ${LOG_PATH}:/opt/docker/logs \
     --name ${CIRCLE_PROJECT_REPONAME} \
