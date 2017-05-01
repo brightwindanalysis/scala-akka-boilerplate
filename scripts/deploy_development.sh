@@ -19,8 +19,9 @@ EOF
 title
 
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-LOG_PATH="/data/logs/docker/${CIRCLE_PROJECT_REPONAME}"
 CONTAINER_PORT=3000
+# mounted volume
+LOG_PATH="/vol/log/${CIRCLE_PROJECT_REPONAME}"
 
 ########## CUSTOM ENVIRONMENT VARIABLES ##########
 HOST_PORT=8080
