@@ -78,3 +78,7 @@ Config the following CircleCI Environment Variables:
 Add a new Java log set on [logentries](https://docs.logentries.com/docs/logback)
 
 View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of your build
+
+Log directory:
+* local `log`
+* aws `/vol/log/scala-akka-boilerplate`

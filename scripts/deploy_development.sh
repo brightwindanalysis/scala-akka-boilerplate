@@ -52,7 +52,7 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
     -e SLACK_WEBHOOK_URL="${SLACK_WEBHOOK_URL}" \
     -e LOGENTRIES_TOKEN="${LOGENTRIES_TOKEN}" \
     -p ${HOST_PORT}:${CONTAINER_PORT} \
-    -v ${LOG_PATH}:/opt/docker/logs \
+    -v ${LOG_PATH}:/opt/docker/log \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 EOF
