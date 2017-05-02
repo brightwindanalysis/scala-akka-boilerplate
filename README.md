@@ -58,27 +58,26 @@ docker exec -it --user root scala-akka-boilerplate bash
 
 ### CI/CD and management tools
 
-Config CircleCI [Slack](https://slack.com/apps/A0F7VRE7N-circleci)'s Webhook
+Requirements for deployment
+* EC2 instance available e.g. `ec2-000-000-000-000.AWS_REGION.compute.amazonaws.com`
+* EC2 Container Registry configured e.g. `AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/scala-akka-boilerplate`
+* Credentials (Access Key ID and Secret Access Key) of a unique IAM user with permission `AmazonEC2ContainerRegistryPowerUser` to push on the registry
+* [Logentries](https://docs.logentries.com/docs/logback) Java Log Set for Logback
 
-[Setup](http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html) Amazon ECR
+CircleCI build setup
+* add the repository to [CircleCI](https://circleci.com/)
+* *AWS CodeDeploy*: set the AWS keypair (Access Key ID and Secret Access Key)
+* *SSH Permissions*: add a private key (PEM) to deploy to the EC2 machine
+* *Chat Notifications*: set a Webhook URL for [Slack](https://slack.com/apps/A0F7VRE7N-circleci) to get a notification on each build
 
-Create a unique IAM user and configure AWS permissions on CircleCI:
-* `AmazonEC2ContainerRegistryPowerUser` to push on the registry
-
-Config SSH permissions on CircleCI to deploy on EC2
-
-Config the following CircleCI Environment Variables:
-* AWS_REGION
+Configure the following CircleCI *Environment Variables*:
+* AWS_REGION e.g. `eu-west-1` (without a/b/c)
 * AWS_ACCOUNT_ID (registry)
-* EC2_USERNAME
-* EC2_HOST
+* EC2_USERNAME e.g. `ubuntu`
+* EC2_HOST e.g. `ec2-000-000-000-000.AWS_REGION.compute.amazonaws.com`
 * SLACK_WEBHOOK_URL
 * LOGENTRIES_TOKEN
 
-Add a new Java log set on [logentries](https://docs.logentries.com/docs/logback)
+View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of any build
 
-View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of your build
-
-Log directory:
-* local `log`
-* aws `/vol/log/scala-akka-boilerplate`
+Logs available in `log` (local) or `/vol/log/scala-akka-boilerplate` (aws)
