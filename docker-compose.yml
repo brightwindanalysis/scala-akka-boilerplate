@@ -1,0 +1,15 @@
+version: '3'
+services:
+  application:
+    container_name: scala-akka-boilerplate
+    image: scala-akka-boilerplate:latest
+    environment:
+      - HTTP_PORT=8080
+      #- LOG_PATH="log"
+      #- SLACK_WEBHOOK_URL=""
+      #- LOGENTRIES_TOKEN=""
+    ports:
+      - 80:8080
+    volumes:
+      # chmod 777 /vol/log/scala-akka-boilerplate
+      - /vol/log/scala-akka-boilerplate:/opt/docker/log

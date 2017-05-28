@@ -38,13 +38,16 @@ sbt docker:stage
 # build image
 sbt docker:publishLocal
 
-# run temporary container
+# start temporary container
 docker run \
   --rm \
   -e HTTP_PORT="8080" \
   -p 80:8080 \
   --name scala-akka-boilerplate \
   scala-akka-boilerplate:latest
+
+# start container
+docker-compose up -d
 
 # request status (with HTTPie)
 http :80/status
