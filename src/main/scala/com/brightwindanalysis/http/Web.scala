@@ -17,12 +17,14 @@ import scala.util.{Failure, Success}
 
 trait Web extends Routes {
 
-  def bindAndHandleHttp(onStart: => Unit)
-                       (implicit system: ActorSystem, materializer: ActorMaterializer): Unit = {
+  protected[this] implicit def actorSystem: ActorSystem
+  protected[this] implicit def materializer: ActorMaterializer
 
-    implicit val _ = system.dispatcher
-    val log = system.log
-    val httpConfig = Settings(system).Http
+  def bindAndHandleHttp(onStart: => Unit): Unit = {
+
+    implicit val _ = actorSystem.dispatcher
+    val log = actorSystem.log
+    val httpConfig = Settings(actorSystem).Http
 
     Http().bindAndHandle(routes, httpConfig.host, httpConfig.port).onComplete {
       case Success(serverBinding@ServerBinding(localAddress)) =>
@@ -49,7 +51,7 @@ trait Web extends Routes {
     def shutdown(failed: Boolean = false): Unit = {
       log.info(s"[failed=$failed] shutting down...")
       materializer.shutdown()
-      system.terminate().onComplete {
+      actorSystem.terminate().onComplete {
         case Success(_) if !failed => sys.exit()
         case _ => sys.exit(-1)
       }

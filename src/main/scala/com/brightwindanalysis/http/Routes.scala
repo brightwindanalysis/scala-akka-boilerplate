@@ -10,6 +10,9 @@ package http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives.{complete, get, path, pathEndOrSingleSlash}
 import akka.http.scaladsl.server.Route
+import akka.util.Timeout
+
+import scala.concurrent.ExecutionContext
 
 // scalastyle:off underscore.import
 import io.circe.generic.auto._
@@ -19,6 +22,9 @@ import io.circe.syntax._
 final case class Status(value: String)
 
 trait Routes {
+
+  protected[this] implicit def executionContext: ExecutionContext
+  protected[this] implicit def timeout: Timeout
 
   val routes: Route = {
     path("status") {

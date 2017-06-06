@@ -9,13 +9,18 @@ package com.brightwindanalysis
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.stream.ActorMaterializer
+import akka.util.Timeout
 import com.brightwindanalysis.http.Web
+import com.brightwindanalysis.setting.Settings
 
 object Main extends Web with App {
 
-  private[this] implicit val actorSystem = ActorSystem("scala-akka-boilerplate")
-  private[this] implicit val materializer = ActorMaterializer()
-  private[this] implicit val executionContext = actorSystem.dispatcher
+  protected[this] implicit val actorSystem = ActorSystem("scala-akka-boilerplate")
+  protected[this] implicit val materializer = ActorMaterializer()
+  protected[this] implicit val executionContext = actorSystem.dispatcher
+
+  private[this] lazy val httpConfig = Settings(actorSystem).Http
+  protected[this] implicit val timeout: Timeout = httpConfig.timeout
 
   private[this] val log = Logging(actorSystem, getClass.getName)
 

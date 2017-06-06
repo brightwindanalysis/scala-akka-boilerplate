@@ -7,7 +7,11 @@
 package com.brightwindanalysis
 package setting
 
+import java.util.concurrent.TimeUnit.SECONDS
+
 import akka.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId, ExtensionIdProvider}
+
+import scala.concurrent.duration.FiniteDuration
 
 final class SettingsImpl(system: ExtendedActorSystem) extends Extension {
   private[this] val config = system.settings.config
@@ -18,6 +22,7 @@ final class SettingsImpl(system: ExtendedActorSystem) extends Extension {
 
     val host: String = httpConfig getString "host"
     val port: Int = httpConfig getInt "port"
+    val timeout = FiniteDuration((httpConfig getDuration "timeout").getSeconds, SECONDS)
   }
 }
 
