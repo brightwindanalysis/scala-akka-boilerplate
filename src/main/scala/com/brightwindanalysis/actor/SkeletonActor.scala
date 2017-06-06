@@ -12,6 +12,7 @@ import akka.event.LoggingReceive
 import com.brightwindanalysis.actor.SkeletonActor.{RequestMessage, ResponseMessage}
 
 object SkeletonActor {
+  def name: String = "skeleton-actor"
   def props: Props = Props[SkeletonActor]
 
   sealed trait Message
