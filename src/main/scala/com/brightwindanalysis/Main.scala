@@ -6,12 +6,16 @@
 
 package com.brightwindanalysis
 
+import java.util.UUID
+
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
+import com.brightwindanalysis.cassandra.SkeletonService
 import com.brightwindanalysis.http.Web
 import com.brightwindanalysis.setting.Settings
+import org.joda.time.{DateTime, DateTimeZone}
 
 object Main extends Web with App {
 
@@ -27,5 +31,23 @@ object Main extends Web with App {
   bindAndHandleHttp {
     log.debug("onStart")
     log.error("ignore me: slack test")
+    //exampleCassandra
+  }
+
+  private[this] def exampleCassandra = {
+    (for {
+      _ <- SkeletonService.initSchema
+    } yield {
+
+      val skeletonId = UUID.randomUUID()
+      SkeletonService.saveOrUpdate(ExampleSkeletonModel(skeletonId, DateTime.now(DateTimeZone.UTC), 1))
+
+      SkeletonService.retrieve(skeletonId) map { skeleton =>
+        log.debug(s"retrieve skeleton: $skeleton")
+      }
+
+    }) recover {
+      case error: Throwable => log.error(s"unable to setup cassandra: $error")
+    }
   }
 }

@@ -21,7 +21,7 @@
     <check level="error" class="org.scalastyle.scalariform.SpacesBeforePlusChecker" enabled="true"/>
     <check level="error" class="org.scalastyle.file.FileLineLengthChecker" enabled="true">
         <parameters>
-            <parameter name="maxLineLength"><![CDATA[160]]></parameter>
+            <parameter name="maxLineLength"><![CDATA[180]]></parameter>
             <parameter name="tabSize"><![CDATA[4]]></parameter>
         </parameters>
     </check>
@@ -127,7 +127,7 @@
     <check level="error" class="org.scalastyle.scalariform.LowercasePatternMatchChecker" enabled="true"/>
     <check level="error" class="org.scalastyle.scalariform.MultipleStringLiteralsChecker" enabled="true">
         <parameters>
-            <parameter name="allowed"><![CDATA[2]]></parameter>
+            <parameter name="allowed"><![CDATA[3]]></parameter>
             <!-- https://github.com/scalastyle/scalastyle/issues/100 -->
             <parameter name="ignoreRegex"><![CDATA[^""?$]]></parameter>
         </parameters>

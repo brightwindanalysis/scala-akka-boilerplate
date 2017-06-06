@@ -86,3 +86,18 @@ Configure the following CircleCI *Environment Variables*:
 View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of any build
 
 Logs available in `log` (local) or `/vol/log/scala-akka-boilerplate` (aws)
+
+### Development
+
+```
+# start cassandra locally
+docker-compose -f docker-compose-cassandra.yml up
+
+# access cassandra
+docker exec -it cassandra bash
+
+# query
+cqlsh -C --debug
+SELECT * FROM scala_akka_boilerplate.skeleton;
+DROP KEYSPACE scala_akka_boilerplate;
+```
