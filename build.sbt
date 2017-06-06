@@ -6,7 +6,7 @@
 
 name := "scala-akka-boilerplate"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.2"
 
 import com.typesafe.config.{Config, ConfigFactory}
 
