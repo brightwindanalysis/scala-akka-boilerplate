@@ -52,6 +52,7 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
     --detach \
     -e SLACK_WEBHOOK_URL="${SLACK_WEBHOOK_URL}" \
     -e LOGENTRIES_TOKEN="${LOGENTRIES_TOKEN}" \
+    -e CASSANDRA_HOSTS="${CASSANDRA_HOSTS}" \
     -p ${HOST_PORT}:${CONTAINER_PORT} \
     -v ${LOG_PATH}:/opt/docker/log \
     --name ${CIRCLE_PROJECT_REPONAME} \
