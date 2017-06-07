@@ -81,6 +81,7 @@ Configure the following CircleCI *Environment Variables*:
 * HTTP_PORT e.g. `8080`
 * SLACK_WEBHOOK_URL
 * LOGENTRIES_TOKEN
+* LOG_LEVEL default is `DEBUG`
 
 View coverage report on [CircleCI UI](https://circleci.com/docs/1.0/code-coverage/#seeing-the-results-in-the-circleci-ui) in the *Artifacts* tab of any build
 
