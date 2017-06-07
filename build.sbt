@@ -8,6 +8,8 @@ name := "scala-akka-boilerplate"
 
 scalaVersion := "2.12.2"
 
+cancelable in Global := true
+
 import com.typesafe.config.{Config, ConfigFactory}
 
 val typesafeConfig = settingKey[Config]("Typesafe config")
