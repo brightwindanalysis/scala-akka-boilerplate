@@ -20,11 +20,12 @@ title
 
 DOCKER_REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 CONTAINER_PORT=3000
+HOST_PORT=${HTTP_PORT}
 # mounted volume
 LOG_PATH="/vol/log/${CIRCLE_PROJECT_REPONAME}"
 
 ########## CUSTOM ENVIRONMENT VARIABLES ##########
-HOST_PORT=8080
+# example MY_ENV_VAR=VALUE
 
 echo "[+] Deploy container to EC2"
 
