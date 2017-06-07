@@ -78,6 +78,7 @@ Configure the following CircleCI *Environment Variables*:
 * AWS_ACCOUNT_ID (registry)
 * EC2_USERNAME e.g. `ubuntu`
 * EC2_HOST e.g. `ec2-000-000-000-000.AWS_REGION.compute.amazonaws.com`
+* HTTP_PORT e.g. `8080`
 * SLACK_WEBHOOK_URL
 * LOGENTRIES_TOKEN
 
