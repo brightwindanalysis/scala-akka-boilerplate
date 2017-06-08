@@ -7,17 +7,20 @@
 package com.brightwindanalysis
 package mongo
 
-import org.mongodb.scala.{Completed, Document, SingleObservable}
+import java.util.UUID
 
-protected[mongo] class SkeletonRepository(connector: Connector) extends Repository(connector) {
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.{Completed, MongoCollection, SingleObservable}
 
-  private[this] lazy val skeletonColletion = collection("skeleton")
+protected[mongo] class SkeletonRepository(connector: Connector) extends Repository[SkeletonModel](connector) {
 
-  override protected[mongo] def insertOne(document: Document): SingleObservable[Completed] =
-    skeletonColletion.insertOne(document)
+  private[this] lazy val skeletonCollection: MongoCollection[SkeletonModel] = getCollection("skeleton")
 
-  override protected[mongo] def findFirst: SingleObservable[Document] =
-    skeletonColletion.find().first()
+  override def insert(model: SkeletonModel): SingleObservable[Completed] =
+    skeletonCollection.insertOne(model)
+
+  override def find(_id: UUID): SingleObservable[SkeletonModel] =
+    skeletonCollection.find(equal("_id", _id)).first()
 }
 
 object SkeletonRepository extends SkeletonRepository(MongoConnector)

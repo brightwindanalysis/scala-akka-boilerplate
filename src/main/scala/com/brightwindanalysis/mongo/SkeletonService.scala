@@ -6,17 +6,32 @@
 
 package com.brightwindanalysis.mongo
 
-import org.mongodb.scala.{Completed, Document, Observer}
+import java.util.UUID
+
+import org.mongodb.scala.{Completed, Observer}
 
 import scala.concurrent.{Future, Promise}
 
-protected[mongo] class SkeletonService(repository: Repository) {
+protected[mongo] class SkeletonService(repository: Repository[SkeletonModel]) {
 
-  def insertOne(document: Document): Future[String] = {
-    val promise = Promise[String]
-    repository.insertOne(document).subscribe(new Observer[Completed] {
+  def insert(model: SkeletonModel): Future[UUID] = {
+    val promise = Promise[UUID]
+    repository.insert(model).subscribe(new Observer[Completed] {
 
-      override def onNext(result: Completed): Unit = promise.success(s"$result")
+      override def onNext(result: Completed): Unit = promise.success(model._id)
+
+      override def onError(e: Throwable): Unit = promise.failure(e)
+
+      override def onComplete(): Unit = ()
+    })
+    promise.future
+  }
+
+  def find(_id: UUID): Future[SkeletonModel] = {
+    val promise = Promise[SkeletonModel]
+    repository.find(_id).subscribe(new Observer[SkeletonModel] {
+
+      override def onNext(result: SkeletonModel): Unit = promise.success(result)
 
       override def onError(e: Throwable): Unit = promise.failure(e)
 

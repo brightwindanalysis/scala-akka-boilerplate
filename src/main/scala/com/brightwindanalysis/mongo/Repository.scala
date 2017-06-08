@@ -7,14 +7,25 @@
 package com.brightwindanalysis
 package mongo
 
-import org.mongodb.scala.{Completed, Document, MongoCollection, SingleObservable}
+import java.util.UUID
 
-protected[mongo] abstract class Repository(connector: Connector) {
+import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
+import org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
+import org.mongodb.scala.bson.codecs.Macros.createCodecProvider
+import org.mongodb.scala.{Completed, MongoCollection, SingleObservable}
 
-  protected[this] def collection(name: String): MongoCollection[Document] = connector.database.getCollection(name)
+protected[mongo] abstract class Repository[M](connector: Connector) {
 
-  protected[mongo] def insertOne(document: Document): SingleObservable[Completed]
+  // TODO SkeletonModel of M
+  private[this] def codecRegistry = fromRegistries(fromProviders(classOf[SkeletonModel]), DEFAULT_CODEC_REGISTRY)
 
-  protected[mongo] def findFirst: SingleObservable[Document]
+  protected[this] def getCollection(name: String): MongoCollection[SkeletonModel] = {
+    val collection: MongoCollection[SkeletonModel] = connector.database.getCollection(name)
+    collection.withCodecRegistry(codecRegistry)
+  }
+
+  def insert(model: M): SingleObservable[Completed]
+
+  def find(_id: UUID): SingleObservable[M]
 
 }
