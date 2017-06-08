@@ -28,7 +28,7 @@ object Main extends Web with App {
   bindAndHandleHttp {
     log.debug("onStart")
     log.error("ignore me: slack test")
-    exampleMongo
+    //exampleMongo
   }
 
   private[this] def exampleMongo = {
