@@ -26,6 +26,8 @@ lazy val V = new {
   val circe = "0.8.0"
   val dispatch = "0.12.0"
 
+  val mongo = "2.1.0"
+
   val akkaHttpTestkit = "10.0.7"
   val scalatest = "3.0.3"
 }
@@ -48,6 +50,8 @@ libraryDependencies ++= Seq(
   N.circe %% "circe-parser" % V.circe,
   N.circe %% "circe-java8" % V.circe,
   "net.databinder.dispatch" %% "dispatch-core" % V.dispatch,
+
+  "org.mongodb.scala" %% "mongo-scala-driver" % V.mongo,
 
   N.typesafe %% "akka-testkit" % V.akka % "test",
   N.typesafe %% "akka-http-testkit" % V.akkaHttpTestkit % "test",

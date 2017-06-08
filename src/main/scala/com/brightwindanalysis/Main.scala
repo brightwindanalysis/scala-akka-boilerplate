@@ -11,7 +11,11 @@ import akka.event.Logging
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import com.brightwindanalysis.http.Web
+import com.brightwindanalysis.mongo.SkeletonService
 import com.brightwindanalysis.setting.Settings
+import org.mongodb.scala.bson.collection.immutable.Document
+
+import scala.util.{Failure, Success}
 
 object Main extends Web with App {
 
@@ -27,5 +31,14 @@ object Main extends Web with App {
   bindAndHandleHttp {
     log.debug("onStart")
     log.error("ignore me: slack test")
+    exampleMongo
+  }
+
+  private[this] def exampleMongo = {
+    val document = Document("name" -> "myName")
+    SkeletonService.insertOne(document) onComplete {
+      case Success(value) => log.debug(s"success: $value")
+      case Failure(error) => log.error(s"error: $error")
+    }
   }
 }
