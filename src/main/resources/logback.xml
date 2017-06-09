@@ -49,6 +49,9 @@
     <define name="LOGENTRIES_TOKEN" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
         <propertyName>application.logentries.token</propertyName>
     </define>
+    <define name="LOGENTRIES_LEVEL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.logentries.level</propertyName>
+    </define>
     <appender name="LOGENTRIES" class="com.logentries.logback.LogentriesAppender">
         <Debug>False</Debug>
         <Token>${LOGENTRIES_TOKEN}</Token>
@@ -57,14 +60,10 @@
         <layout>
             <pattern>${PATTERN}</pattern>
         </layout>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LOGENTRIES_LEVEL}</level>
+        </filter>
     </appender>
-
-    <define name="LOGENTRIES_LEVEL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
-        <propertyName>application.logentries.level</propertyName>
-    </define>
-    <logger name="com.brightwindanalysis" level="${LOGENTRIES_LEVEL}" additivity="false">
-        <appender-ref ref="LOGENTRIES"/>
-    </logger>
 
     <define name="LOG_LEVEL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
         <propertyName>application.log.level</propertyName>
