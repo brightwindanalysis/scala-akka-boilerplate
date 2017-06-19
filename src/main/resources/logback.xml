@@ -69,7 +69,6 @@
         <propertyName>application.log.level</propertyName>
     </define>
     <root level="${LOG_LEVEL}">
-        <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="SLACK"/>
         <appender-ref ref="LOGENTRIES"/>
