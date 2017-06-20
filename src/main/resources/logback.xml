@@ -17,12 +17,13 @@
     </define>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${LOG_NAME}.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>${LOG_PATH}/${LOG_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- keep 30 days' worth of history capped at 3GB total size -->
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>3GB</totalSizeCap>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/${LOG_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 10 days worth of history, but at most 2GB -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${PATTERN}</pattern>
@@ -69,6 +70,7 @@
         <propertyName>application.log.level</propertyName>
     </define>
     <root level="${LOG_LEVEL}">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="SLACK"/>
         <appender-ref ref="LOGENTRIES"/>
