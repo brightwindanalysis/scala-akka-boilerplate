@@ -54,6 +54,7 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
     -e LOGENTRIES_TOKEN="${LOGENTRIES_TOKEN}" \
     -p ${HOST_PORT}:${CONTAINER_PORT} \
     -v ${LOG_PATH}:/opt/docker/log \
+    --log-driver none \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 EOF
