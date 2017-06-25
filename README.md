@@ -49,6 +49,11 @@ docker run \
 # start container
 docker-compose up -d
 
+# grant permissions to folder
+chmod 777 /vol/log/scala-akka-boilerplate
+# logs
+tail -f /vol/log/scala-akka-boilerplate/scala-akka-boilerplate.log
+
 # request status (with HTTPie)
 http :80/status
 
