@@ -19,7 +19,7 @@ import com.outworkers.phantom.dsl._
 import scala.concurrent.Future
 
 private[cassandra] abstract class SkeletonModel
-  extends CassandraTable[AbstractSkeletonModel, ExampleSkeletonModel] {
+  extends CassandraTable[ConcreteSkeletonModel, ExampleSkeletonModel] {
 
   override def tableName: String = "skeleton"
 
@@ -43,7 +43,7 @@ private[cassandra] abstract class SkeletonModel
 
 }
 
-private[cassandra] abstract class AbstractSkeletonModel extends SkeletonModel with RootConnector {
+private[cassandra] abstract class ConcreteSkeletonModel extends SkeletonModel with RootConnector {
 
   def init: Future[ResultSet] =
     create.ifNotExists().future()

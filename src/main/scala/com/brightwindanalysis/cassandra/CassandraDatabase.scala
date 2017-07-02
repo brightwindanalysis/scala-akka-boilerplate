@@ -12,7 +12,7 @@ import com.outworkers.phantom.database.Database
 
 class CassandraDatabase(override val connector: CassandraConnection) extends Database[CassandraDatabase](connector) {
 
-  object SkeletonTable extends AbstractSkeletonModel with connector.Connector
+  object SkeletonTable extends ConcreteSkeletonModel with connector.Connector
 
 }
 
