@@ -6,6 +6,7 @@
 
 package com.brightwindanalysis.logback
 
+import java.nio.charset.Charset
 import java.time.ZonedDateTime
 
 import ch.qos.logback.classic.spi.ILoggingEvent
@@ -46,9 +47,9 @@ final class SlackAppender extends AppenderBase[ILoggingEvent] {
 
       val request = url(webhookUrl)
         .POST
-        .setContentType("application/json", "UTF-8") << SlackLog(text).asJson.noSpaces
+        .setContentType("application/json", Charset.forName("UTF-8")) << SlackLog(text).asJson.noSpaces
 
-      Http(request)
+      Http.default(request)
         .onComplete {
           case Success(_) => addInfo("slack notification succeed")
           case Failure(error) => addWarn("slack notification failed", error)

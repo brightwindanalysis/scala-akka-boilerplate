@@ -17,11 +17,12 @@
     </define>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${LOG_NAME}.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>${LOG_PATH}/${LOG_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- keep 30 days' worth of history capped at 3GB total size -->
-            <maxHistory>30</maxHistory>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/${LOG_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 10 days worth of history, but at most 3GB -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>10</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
@@ -49,6 +50,9 @@
     <define name="LOGENTRIES_TOKEN" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
         <propertyName>application.logentries.token</propertyName>
     </define>
+    <define name="LOGENTRIES_LEVEL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
+        <propertyName>application.logentries.level</propertyName>
+    </define>
     <appender name="LOGENTRIES" class="com.logentries.logback.LogentriesAppender">
         <Debug>False</Debug>
         <Token>${LOGENTRIES_TOKEN}</Token>
@@ -57,6 +61,9 @@
         <layout>
             <pattern>${PATTERN}</pattern>
         </layout>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LOGENTRIES_LEVEL}</level>
+        </filter>
     </appender>
 
     <define name="LOG_LEVEL" class="com.brightwindanalysis.setting.TypesafeConfigPropertyDefiner">
