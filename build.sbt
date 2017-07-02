@@ -8,7 +8,8 @@ name := "scala-akka-boilerplate"
 
 scalaVersion := "2.12.2"
 
-cancelable in Global := true
+// throws java.util.concurrent.RejectedExecutionException
+//cancelable in Global := true
 
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -19,14 +20,14 @@ typesafeConfig := {
 
 lazy val V = new {
   val akka = "2.5.3"
-  val akkaHttp = "10.0.7"
+  val akkaHttp = "10.0.9"
   val logback = "1.2.3"
   val logentries = "1.1.38"
 
   val circe = "0.8.0"
   val dispatch = "0.13.0"
 
-  val akkaHttpTestkit = "10.0.7"
+  val akkaHttpTestkit = "10.0.9"
   val scalatest = "3.0.3"
 }
 
