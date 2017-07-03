@@ -21,15 +21,11 @@ dependencies:
     - find ~/.ivy2 -name "ivydata-*.properties" | xargs -r rm
     - wget -q https://dl.bintray.com/sbt/debian/sbt-"$SBT_VERSION".deb
     - sudo dpkg -i sbt-"$SBT_VERSION".deb
-  override:
-    - sbt ++$SCALA_VERSION coverage test:compile
-    - sbt docker:publishLocal
 
 test:
-  pre:
-    - sbt scalastyle
   override:
-    - sbt ++$SCALA_VERSION coverage test coverageReport
+    - sbt ++$SCALA_VERSION scalastyle coverage test coverageReport
+    - sbt docker:publishLocal
   post:
     - mv target/scala-$SCALA_BINARY_VERSION/coverage-report $CIRCLE_ARTIFACTS/coverage-report
     - mv target/scala-$SCALA_BINARY_VERSION/scoverage-report $CIRCLE_ARTIFACTS/scoverage-report
