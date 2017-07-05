@@ -24,12 +24,14 @@ dependencies:
 
 test:
   override:
-    - sbt ++$SCALA_VERSION scalastyle coverage test coverageReport docker:publishLocal
+    - sbt ++$SCALA_VERSION scalastyle coverage test coverageReport
   post:
     - mv target/scala-$SCALA_BINARY_VERSION/coverage-report $CIRCLE_ARTIFACTS/coverage-report
     - mv target/scala-$SCALA_BINARY_VERSION/scoverage-report $CIRCLE_ARTIFACTS/scoverage-report
 
 deployment:
+  pre:
+    - sbt docker:publishLocal
   development:
     branch: master
     commands:
