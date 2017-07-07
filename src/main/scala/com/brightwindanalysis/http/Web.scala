@@ -42,7 +42,7 @@ trait Web extends Routes {
         serverBinding.unbind().onComplete {
           case Success(_) => shutdown()
           case Failure(error) =>
-            log.error("failed to shut down", error)
+            log.error(error.getCause, "failed to shut down", error)
             shutdown(failed = true)
         }
       }
