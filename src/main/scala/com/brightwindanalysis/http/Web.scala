@@ -27,7 +27,7 @@ trait Web extends Routes {
     val httpConfig = Settings(actorSystem).Http
 
     Http().bindAndHandle(routes, httpConfig.host, httpConfig.port).onComplete {
-      case Success(serverBinding@ServerBinding(localAddress)) =>
+      case Success(serverBinding @ ServerBinding(localAddress)) =>
         val (host, port) = (localAddress.getHostName, localAddress.getPort)
         log.info("successfully bound to {}:{}", host, port)
         onStart

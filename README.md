@@ -16,6 +16,9 @@ sbt ~re-start
 # check style
 sbt scalastyle
 
+# format code
+sbt scalafmt
+
 # show project dependencies
 sbt dependencyTree
 
