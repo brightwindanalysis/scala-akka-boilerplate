@@ -6,7 +6,7 @@
 
 name := "scala-akka-boilerplate"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 
 // throws java.util.concurrent.RejectedExecutionException
 //cancelable in Global := true
