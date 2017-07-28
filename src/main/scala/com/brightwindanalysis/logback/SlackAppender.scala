@@ -45,11 +45,11 @@ final class SlackAppender extends AppenderBase[ILoggingEvent] {
 
       val text = s"${ZonedDateTime.now}\n$applicationName\n${event.getFormattedMessage}"
 
-      val request = url(webhookUrl)
-        .POST
+      val request = url(webhookUrl).POST
         .setContentType("application/json", Charset.forName("UTF-8")) << SlackLog(text).asJson.noSpaces
 
-      Http.default(request)
+      Http
+        .default(request)
         .onComplete {
           case Success(_) => addInfo("slack notification succeed")
           case Failure(error) => addWarn("slack notification failed", error)

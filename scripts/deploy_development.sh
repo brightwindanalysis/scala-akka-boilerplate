@@ -5,16 +5,16 @@ set -euo pipefail
 IFS=$'\n\t'
 
 title() {
-cat<<EOF
+cat<<"EOT"
 
-     __         _       __    __           _           __
-    / /_  _____(_)___ _/ /_  / /__      __(_)___  ____/ /
-   / __ \/ ___/ / __\`/ __ \/ __/ | /| / / / __ \/ __  /
-  / /_/ / /  / / /_/ / / / / /_ | |/ |/ / / / / / /_/ /
- /_.___/_/  /_/\__, /_/ /_/\__/ |__/|__/_/_/ /_/\__,_/
-             /____/
+      __         _       __    __           _           __
+     / /_  _____(_)___ _/ /_  / /__      __(_)___  ____/ /
+    / __ \/ ___/ / __ `/ __ \/ __/ | /| / / / __ \/ __  /
+   / /_/ / /  / / /_/ / / / / /_ | |/ |/ / / / / / /_/ /
+  /_.___/_/  /_/\__, /_/ /_/\__/ |__/|__/_/_/ /_/\__,_/
+               /____/
 
-EOF
+EOT
 }
 title
 
@@ -35,19 +35,15 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   sudo mkdir -p ${LOG_PATH}
   sudo chmod 777 ${LOG_PATH}
 
-  # remove old container by name
-  docker ps -a -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
-  # delete dangling images <none>
-  docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
-  # delete dangling volumes
-  docker volume ls -q -f dangling=true | xargs --no-run-if-empty docker volume rm
-
   eval $(aws ecr get-login --region $AWS_REGION)
   docker pull ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
 
+  # remove old container by name
+  docker ps -a -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
+
   ########## CUSTOM COMMANDS ##########
 
-  # run container in background
+  # run container in background with logs disabled
   docker run \
     --detach \
     -e SLACK_WEBHOOK_URL="${SLACK_WEBHOOK_URL}" \
@@ -58,4 +54,12 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
     --log-driver none \
     --name ${CIRCLE_PROJECT_REPONAME} \
     ${DOCKER_REGISTRY}/${CIRCLE_PROJECT_REPONAME}:latest
+
+  ########## END CUSTOM COMMANDS ##########
+
+  # delete dangling images <none>
+  docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
+  # delete dangling volumes
+  docker volume ls -q -f dangling=true | xargs --no-run-if-empty docker volume rm
+
 EOF

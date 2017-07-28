@@ -6,7 +6,7 @@
 
 name := "scala-akka-boilerplate"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -22,7 +22,7 @@ lazy val V = new {
   val logentries = "1.1.38"
 
   val circe = "0.8.0"
-  val dispatch = "0.13.0"
+  val dispatch = "0.13.1"
 
   val phantom = "2.12.1"
   val jodaTime = "2.9.9"
