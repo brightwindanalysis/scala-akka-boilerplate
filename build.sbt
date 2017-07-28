@@ -8,9 +8,6 @@ name := "scala-akka-boilerplate"
 
 scalaVersion := "2.12.3"
 
-// throws java.util.concurrent.RejectedExecutionException
-//cancelable in Global := true
-
 import com.typesafe.config.{Config, ConfigFactory}
 
 val typesafeConfig = settingKey[Config]("Typesafe config")
@@ -25,7 +22,7 @@ lazy val V = new {
   val logentries = "1.1.38"
 
   val circe = "0.8.0"
-  val dispatch = "0.13.0"
+  val dispatch = "0.13.1"
 
   val akkaHttpTestkit = "10.0.9"
   val scalatest = "3.0.3"
