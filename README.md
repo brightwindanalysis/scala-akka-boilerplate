@@ -7,10 +7,10 @@
 
 ### Useful commands
 ```
-# run the project
+# start the project
 sbt run
 
-# enable hot reload
+# hot reload
 sbt ~re-start
 
 # check style
@@ -18,6 +18,9 @@ sbt scalastyle
 
 # show project dependencies
 sbt dependencyTree
+
+# show outdated dependencies
+sbt dependencyUpdates
 
 # run tests
 sbt test
