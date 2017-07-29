@@ -24,8 +24,11 @@ HOST_PORT=${HTTP_PORT}
 # mounted volume
 LOG_PATH="/vol/log/${CIRCLE_PROJECT_REPONAME}"
 
-########## CUSTOM ENVIRONMENT VARIABLES ##########
+########## START CUSTOM ENVIRONMENT VARIABLES ##########
+
 # example MY_ENV_VAR=VALUE
+
+########## END CUSTOM ENVIRONMENT VARIABLES ##########
 
 echo "[+] Deploy container to EC2"
 
@@ -41,7 +44,7 @@ ssh ${EC2_USERNAME}@${EC2_HOST} << EOF
   # remove old container by name
   docker ps -a -q -f name=${CIRCLE_PROJECT_REPONAME} | xargs --no-run-if-empty docker rm -f
 
-  ########## CUSTOM COMMANDS ##########
+  ########## START CUSTOM COMMANDS ##########
 
   # run container in background with logs disabled
   docker run \
