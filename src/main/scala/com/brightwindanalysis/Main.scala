@@ -29,7 +29,6 @@ object Main extends Web with App {
   private[this] val log = Logging(actorSystem, getClass.getName)
 
   bindAndHandleHttp {
-    log.debug("onStart")
     log.error("ignore me: slack test")
     //exampleCassandra
   }
@@ -50,4 +49,5 @@ object Main extends Web with App {
       case error: Throwable => log.error(s"unable to setup cassandra: $error")
     }
   }
+
 }
