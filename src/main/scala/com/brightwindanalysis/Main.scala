@@ -25,7 +25,7 @@ object Main extends Web with App {
   private[this] val log = Logging(actorSystem, getClass.getName)
 
   bindAndHandleHttp {
-    log.debug("onStart")
     log.error("ignore me: slack test")
   }
+
 }

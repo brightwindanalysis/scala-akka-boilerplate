@@ -14,7 +14,7 @@ import akka.http.scaladsl.Http.ServerBinding
 import akka.stream.ActorMaterializer
 import com.brightwindanalysis.setting.Settings
 
-import scala.util.{Failure, Success}
+import scala.util.{Failure, Success, Try}
 
 trait Web extends Routes {
 
@@ -31,17 +31,28 @@ trait Web extends Routes {
       case Success(serverBinding@ServerBinding(localAddress)) =>
         val (host, port) = (localAddress.getHostName, localAddress.getPort)
         log.info(s"successfully bound to [$host:$port]")
-        onStart
+        startApp
         shutdownHttp(serverBinding)
       case Failure(error) =>
         log.error(error, s"failed to bind to [${httpConfig.host}:${httpConfig.port}]: $error")
         shutdown(failed = true)
     }
 
-    def shutdownHttp(serverBinding: ServerBinding) = {
+    def startApp: Unit = {
+      Try(onStart) match {
+        case Success(_) =>
+          log.info("successfully started")
+        case Failure(error) =>
+          log.error(error, s"failed to start: $error")
+          shutdown(failed = true)
+      }
+    }
+
+    def shutdownHttp(serverBinding: ServerBinding): Unit = {
       sys.addShutdownHook {
         serverBinding.unbind().onComplete {
-          case Success(_) => shutdown()
+          case Success(_) =>
+            shutdown()
           case Failure(error) =>
             log.error(error, s"failed to shut down: $error")
             shutdown(failed = true)
