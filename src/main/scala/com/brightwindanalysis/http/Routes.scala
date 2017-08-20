@@ -7,33 +7,35 @@
 package com.brightwindanalysis
 package http
 
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
-import akka.http.scaladsl.server.Directives.{complete, get, path, pathEndOrSingleSlash}
+import akka.http.scaladsl.model.StatusCodes.ServiceUnavailable
+import akka.http.scaladsl.server.Directives.pathPrefix
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
+import com.brightwindanalysis.http.route.StatusRoute
 
 import scala.concurrent.ExecutionContext
 
 // scalastyle:off underscore.import
-import io.circe.generic.auto._
-import io.circe.syntax._
+import akka.http.scaladsl.server.Directives._
 // scalastyle:on underscore.import
 
-final case class Status(value: String)
-
-trait Routes {
+trait Routes extends StatusRoute {
 
   protected[this] implicit def executionContext: ExecutionContext
   protected[this] implicit def timeout: Timeout
 
-  val routes: Route = {
-    path("status") {
-      pathEndOrSingleSlash {
-        get {
-          complete(HttpEntity(ContentTypes.`application/json`, Status("OK").asJson.noSpaces))
-        }
+  /**
+    * All routes.
+    *
+    * @return Route
+    */
+  def routes: Route = statusRoute ~ v1
+
+  private[this] def v1 =
+    pathPrefix("v1") {
+      get {
+        complete(ServiceUnavailable)
       }
     }
-  }
 
 }
