@@ -4,10 +4,12 @@
  * Proprietary and confidential
  */
 
-package com.brightwindanalysis.http
+package com.brightwindanalysis
+package http
 
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.brightwindanalysis.Main.routes
+import com.brightwindanalysis.http.route.Status
 import org.scalatest.{Matchers, WordSpec}
 
 // scalastyle:off underscore.import
