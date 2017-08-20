@@ -1,9 +1,7 @@
 /*
- *
- *  * Copyright (C) BrightWind - All Rights Reserved
- *  * Unauthorized copying of this file, via any medium is strictly prohibited
- *  * Proprietary and confidential
- *
+ * Copyright (C) BrightWind - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
  */
 
 package com.brightwindanalysis.http
@@ -21,8 +19,7 @@ import io.circe.syntax._
 
 final case class Status(value: String)
 
-trait StatusRoute {
-  this: Routes =>
+trait StatusRoute { this: Routes =>
 
   /**
     * Status route.

@@ -16,7 +16,7 @@ typesafeConfig := {
 }
 
 lazy val V = new {
-  val akka = "2.5.3"
+  val akka = "2.5.4"
   val akkaHttp = "10.0.9"
   val logback = "1.2.3"
   val logentries = "1.1.38"
