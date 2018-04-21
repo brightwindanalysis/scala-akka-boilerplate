@@ -6,7 +6,7 @@
 
 name := "scala-akka-boilerplate"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.5"
 
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -16,16 +16,16 @@ typesafeConfig := {
 }
 
 lazy val V = new {
-  val akka = "2.5.4"
-  val akkaHttp = "10.0.9"
+  val akka = "2.5.12"
+  val akkaHttp = "10.1.1"
   val logback = "1.2.3"
   val logentries = "1.1.38"
 
-  val circe = "0.8.0"
+  val circe = "0.9.3"
   val dispatch = "0.13.1"
 
-  val akkaHttpTestkit = "10.0.9"
-  val scalatest = "3.0.3"
+  val akkaHttpTestkit = "10.1.1"
+  val scalatest = "3.0.4"
 }
 
 lazy val N = new {
@@ -36,7 +36,7 @@ lazy val N = new {
 libraryDependencies ++= Seq(
   N.typesafe %% "akka-actor" % V.akka,
   N.typesafe %% "akka-stream" % V.akka,
-  N.typesafe %% "akka-http" % V.akkaHttp exclude("com.typesafe.akka", "akka-stream_2.12"),
+  N.typesafe %% "akka-http" % V.akkaHttp,
   N.typesafe %% "akka-slf4j" % V.akka,
   "ch.qos.logback" % "logback-classic" % V.logback,
   "com.logentries" % "logentries-appender" % V.logentries,
